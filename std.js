@@ -1,8 +1,10 @@
 class Std{
+  static val = 1;
   constructor(){
     this.__status__ = true;
     this.__autor__ = "...";
     this.__version__ = "v1.0.0.1";
+    this.__key__ = "None";
   }
   // поток вывода
   cout(){
@@ -18,6 +20,14 @@ class Std{
   
   static sayHi(){ console.log("::std:: - ::module::" + "\n" + "::std.help():: - help"); }
   
+  random_key(){
+    var alf = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789", res = "", index;
+    while (res.length < 15) {
+      index = Math.floor(Math.random() * alf.length);
+      res += alf[index];
+    } return res;
+  }
+
   endl(){ return "\n"; }
   
   // поток ошибок
@@ -66,7 +76,7 @@ class Std{
     val1 = val2;
     val2 = tmp;
   }
-  
+
   str_plus(str, count){
     var res = [];
     for(var i = 0; i < count; ++i){
@@ -85,7 +95,18 @@ class Std{
     str = "";
     return str;
   }
-  
+
+  istype(value){
+    return typeof(value);
+  }
+
+  add_value_in_lm(value){
+    this.__key__ = this.random_key();
+    localStorage.setItem(this.__key__, JSON.stringify(value));
+  }
+
+  load_value_in_lm(){ return JSON.parse(localStorage.getItem(this.__key__)); }
+
   help(){ console.log(
     "cout() - ( поток вывода )вывод чего либо в консоль" + "\n" +
     "cin() - ( поток ввода ) ввод данных (web)" + "\n" +
@@ -97,7 +118,11 @@ class Std{
     "output_array() - метод печати массива в консоль (одномерный или двумерный) " + "\n" +
     "str_plus() - вывод строки n раз " + "\n" +
     "str_move() - две строки объединить " + "\n" +
-    "str_cls() - очистить строку " + "\n" 
+    "str_cls() - очистить строку " + "\n" +
+    "istype() - определение типа переменной " + "\n" +
+    "add_value_in_lm() - добавление определенных данных в локальную память ( с key )" + "\n" +
+    "load_value_in_lm() - выгрузка данных из локальной памяти ( по key )" + "\n" +
+    "random_key() - генерация рандомного ключа"
   )}
 
   get_version_module(){ return this.__version__; }
@@ -106,5 +131,4 @@ class Std{
 
 module.exports = {
   Std: Std, 
-  sayHi: sayHi
 } 
