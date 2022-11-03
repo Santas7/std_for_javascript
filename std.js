@@ -1,5 +1,3 @@
-function sayHi(std){ std.cout("::std:: - ::module::" + std.endl() + "::std.help():: - help"); }
-
 class Std{
   constructor(){
     this.__status__ = true;
@@ -17,6 +15,8 @@ class Std{
     var value = prompt("> ");
     return value;
   }
+  
+  static sayHi(){ console.log("::std:: - ::module::" + "\n" + "::std.help():: - help"); }
   
   endl(){ return "\n"; }
   
