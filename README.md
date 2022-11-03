@@ -10,7 +10,7 @@ std.cout("Hello, world!");
 
 #FOR WEB:
 ```html
-<script src="./src.js"></script>
+<script src="./std.js"></script>
 <script src="main.js"></script>
 ```
 
