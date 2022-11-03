@@ -66,7 +66,26 @@ class Std{
     val1 = val2;
     val2 = tmp;
   }
+  
+  str_plus(str, count){
+    var res = [];
+    for(var i = 0; i < count; ++i){
+      res.push([str]);
+    }
+    return res.join(' ');
+  }
 
+  str_move(str1, str2){
+    var res = [];
+    res.push([str1], [str2]);
+    return res.join(' ');
+  }
+
+  str_cls(str){
+    str = "";
+    return str;
+  }
+  
   help(){ console.log(
     "cout() - ( поток вывода )вывод чего либо в консоль" + "\n" +
     "cin() - ( поток ввода ) ввод данных (web)" + "\n" +
@@ -75,7 +94,10 @@ class Std{
     "fill_n() - ( цикл for (x1) ) " + "\n" +
     "fill_n_2() - ( цикл for (x2) ) " + "\n" +
     "extmp_() - работа с временной переменной " + "\n" +
-    "output_array() - метод печати массива в консоль (одномерный или двумерный) " + "\n"
+    "output_array() - метод печати массива в консоль (одномерный или двумерный) " + "\n" +
+    "str_plus() - вывод строки n раз " + "\n" +
+    "str_move() - две строки объединить " + "\n" +
+    "str_cls() - очистить строку " + "\n" 
   )}
 
   get_version_module(){ return this.__version__; }
