@@ -1,5 +1,5 @@
 class Std{
-  static val = 1;
+  static status = true;
   constructor(){
     this.__status__ = true;
     this.__autor__ = "...";
