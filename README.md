@@ -6,6 +6,20 @@
 const std_module = require('./std');
 var std = new std_module.Std();
 std.cout("Hello, world!");
+
+// example with add vector
+var v1 = new std_module.Vector();
+v1.push_back(1);
+v1.push_back(2);
+v1.push_back(3);
+v1.output_vector(); // 1 2 3
+
+// example with add list
+var l1 = new std_module.List();
+l1.add(1);
+l1.add(2);
+l1.add(3);
+l1.output_list(); // 3->2->1->
 ```
 
 #FOR WEB:
