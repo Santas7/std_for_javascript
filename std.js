@@ -128,7 +128,7 @@ class Std{
     "add_value_in_lm() - добавление определенных данных в локальную память ( с key )" + "\n" +
     "load_value_in_lm() - выгрузка данных из локальной памяти ( по key )" + "\n" +
     "random_key() - генерация рандомного ключа" + "\n\n" +
-    
+
     "std::iterator-->\n" +
     "__next__() - возвращает следующий элемент" + "\n" +
     "__back__() - возвращает предыдущий элемент" + "\n" +
@@ -153,13 +153,17 @@ class Std{
     "output_vector() - вывод значений вектора ( в консоль ) " + "\n" +
     "emplace() - вставка нового элемента перед pos " + "\n" +
     "emplace_back() - вставка нового элемента после pos " + "\n\n" +
-    
+
     "std::list-->\n" +
     "add() - добавление узла в список " + "\n" +
     "isEmpty() - проверка на пустой список " + "\n" +
     "clear() - очистка списка ( удаление всех узлов списка ) " + "\n" +
     "delete_by_position(pos) - удаление узла по позиции " + "\n" +
-    "output_list() - вывод списка ( в консоль ) " + "\n"
+    "output_list() - вывод списка ( в консоль ) " + "\n\n" + 
+
+    "std::file-->\n" +
+    "write() - запись в файл " + "\n" +
+    "read() - чтение файла " + "\n"
   )}
 
   get_version_module(){ return __version__; }
@@ -425,10 +429,32 @@ class List{
   }
 }
 
+class File{
+  constructor(path){
+    this.fs = require('fs');
+    this._path = path;
+  }
+
+  read(){
+    this.fs.readFile(this._path, 'utf8', function(error, file_сontent){
+      if(error) throw error; 
+      console.log(file_сontent); 
+   });
+  }
+
+  write(content){
+    this.fs.writeFile(this._path, content, function(error){
+      if(error) throw error; // ошибка чтения файла, если есть
+      console.log('Данные успешно записались в файл');
+   });
+  }
+}
+
 
 module.exports = {
   Std: Std, 
   Iterator: Iterator_,
   Vector: Vector,
   List: List,
-}
+  File: File
+} 
