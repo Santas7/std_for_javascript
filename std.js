@@ -150,7 +150,13 @@ class Std{
     "insert() - вставка элементов в вектор ( с заменой )" + "\n" +
     "output_vector() - вывод значений вектора ( в консоль ) " + "\n" +
     "emplace() - вставка нового элемента перед pos " + "\n" +
-    "emplace_back() - вставка нового элемента после pos " + "\n"
+    "emplace_back() - вставка нового элемента после pos " + "\n\n" +
+    "std::list-->\n" +
+    "add() - добавление узла в список " + "\n" +
+    "isEmpty() - проверка на пустой список " + "\n" +
+    "clear() - очистка списка ( удаление всех узлов списка ) " + "\n" +
+    "delete_by_position(pos) - удаление узла по позиции " + "\n" +
+    "output_list() - вывод списка ( в консоль ) " + "\n"
   )}
 
   get_version_module(){ return __version__; }
@@ -330,8 +336,96 @@ class Vector{
   }
 }
 
+class Node{
+  constructor(){
+    this.next;
+    this.value;
+  }
+}
+class List{
+  constructor(){
+    this._head = null;
+    this._count = 0; 
+  }
+
+  get_count() { return this._count; }
+  isEmpty() { return this._count == 0; }
+
+  add(value, node = null){
+    var elem = new Node();
+    elem.value = value;
+    ++this._count;
+    if (node == null) {
+      if (this._head == null) {
+        elem.next = null;
+        this._head = elem;
+      }
+      else {
+        elem.next = this._head;
+        this._head = elem;
+      }
+      return elem;
+    }
+    else{
+      elem.next = node.next;
+      node.next = elem;
+    }
+  }  
+
+  delete_by_position(node){
+    if (this.isEmpty()) return null;
+    if (node == null) { return null; } // В списке нет узлов
+    --this._count;
+    if (node == this._head){
+      this._head = node.next;
+      delete node.next;
+      delete node.value;
+      return this._head;
+    }
+    else{
+      var prev = new Node();
+      var p = this._head;
+      while (p.next != node)
+        p = p.next;
+      prev = p;
+      prev.next = node.next;
+      delete node.next;
+      delete node.value;
+      return prev;
+    }
+  }
+
+  clear(){
+    this._head = null;
+    while(this._head){
+      delete this._head.next;
+      delete this._head.value;
+      this._head = this._head.next;
+    }
+    this._count = 0;
+    this._head = null;
+  }
+
+  output_list(){
+    if(this._head != null){
+      var res = "";
+      var tmp = this._head;
+      while(tmp){
+        res += tmp.value+"->";
+        tmp = tmp.next;
+      }
+      console.log(res);
+    }
+    else{
+      console.log("Список пуст!");
+    }
+  }
+}
+
+
 module.exports = {
   Std: Std, 
   Iterator: Iterator_,
   Vector: Vector,
-} 
+  List: List,
+}
