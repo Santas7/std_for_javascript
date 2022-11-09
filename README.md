@@ -20,6 +20,11 @@ l1.add(1);
 l1.add(2);
 l1.add(3);
 l1.output_list(); // 3->2->1->
+
+// example with add file
+var file = new std_module.File('file.txt');
+file.read(); // "hello"
+file.write("hello world"); // in file.txt -> "hello world"
 ```
 
 #FOR WEB:
