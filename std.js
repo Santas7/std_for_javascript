@@ -1,9 +1,12 @@
+const NAME_MODULE = "Std";
+const VERSION = "v1.0.0.1";
+const AUTOR = "&Santas7"
+const LINK_GITHUB = "https://github.com/Santas7/std_for_javascript"
+
+
 class Std{
-  static status = true;
   constructor(){
     this.__status__ = true;
-    this.__autor__ = "...";
-    this.__version__ = "v1.0.0.1";
     this.__key__ = "None";
   }
   // поток вывода
@@ -53,7 +56,7 @@ class Std{
       element.push([tmp]);
     }
   }
-
+  
   output_array(A, type){
     if(type == 1) {    
       for(var i = 0; i < A.length; ++i){
@@ -77,7 +80,7 @@ class Std{
     val2 = tmp;
   }
 
-  str_plus(str, count){
+  str_extention(str, count){
     var res = [];
     for(var i = 0; i < count; ++i){
       res.push([str]);
@@ -85,7 +88,7 @@ class Std{
     return res.join(' ');
   }
 
-  str_move(str1, str2){
+  str_plus(str1, str2){
     var res = [];
     res.push([str1], [str2]);
     return res.join(' ');
@@ -108,6 +111,8 @@ class Std{
   load_value_in_lm(){ return JSON.parse(localStorage.getItem(this.__key__)); }
 
   help(){ console.log(
+    "База STD-->\n" +
+
     "cout() - ( поток вывода )вывод чего либо в консоль" + "\n" +
     "cin() - ( поток ввода ) ввод данных (web)" + "\n" +
     "endl() - перенос строки" + "\n" +
@@ -116,19 +121,217 @@ class Std{
     "fill_n_2() - ( цикл for (x2) ) " + "\n" +
     "extmp_() - работа с временной переменной " + "\n" +
     "output_array() - метод печати массива в консоль (одномерный или двумерный) " + "\n" +
-    "str_plus() - вывод строки n раз " + "\n" +
-    "str_move() - две строки объединить " + "\n" +
+    "str_plus() - две строки объединить " + "\n" +
+    "str_extention() - вывод строки n раз " + "\n" +
     "str_cls() - очистить строку " + "\n" +
     "istype() - определение типа переменной " + "\n" +
     "add_value_in_lm() - добавление определенных данных в локальную память ( с key )" + "\n" +
     "load_value_in_lm() - выгрузка данных из локальной памяти ( по key )" + "\n" +
-    "random_key() - генерация рандомного ключа"
+    "random_key() - генерация рандомного ключа" + "\n\n" +
+    "std::iterator-->\n" +
+    "__next__() - возвращает следующий элемент" + "\n" +
+    "__back__() - возвращает предыдущий элемент" + "\n" +
+    "get_element() и get_max_element - возвращает текущий элемент и максимальный" + "\n" +
+    "set_element() и set_max_element - устанавливает новый текущий элемент и максимальный" + "\n\n" +
+    "std::vector-->\n" +
+    "front() - доступ к первому элементу " + "\n" +
+    "back() - доступ к последнему элементу" + "\n" +
+    "begin() - возвращает итератор на первый элемент вектора " + "\n" +
+    "end() - возвращает итератор на место после последнего элемента вектора " + "\n" +
+    "push_back() - вставка элемента в конец вектора " + "\n" +
+    "pop_back() - удалить последний элемент вектора " + "\n" +
+    "resize() - изменяет размер вектора на заданную величину " + "\n" +
+    "size() - возвращает количество элементов в векторе " + "\n" +
+    "swap(vector) - обменять содержимое двух векторов " + "\n" +
+    "swap_2(vector_first, vector_second) - обменять содержимое двух векторов " + "\n" +
+    "erase() - удаляет указанные элементы вектора (один или несколько) " + "\n" +
+    "isEmpty() - возвращает true, если вектор пуст " + "\n" +
+    "clear() - удаляет все элементы вектора  " + "\n" +
+    "insert() - вставка элементов в вектор ( с заменой )" + "\n" +
+    "output_vector() - вывод значений вектора ( в консоль ) " + "\n" +
+    "emplace() - вставка нового элемента перед pos " + "\n" +
+    "emplace_back() - вставка нового элемента после pos " + "\n"
   )}
 
-  get_version_module(){ return this.__version__; }
+  get_version_module(){ return __version__; }
 }
 
+class Iterator{
+  constructor(next){
+    this.next = next;
+  }
+
+  begin(){
+    return new Iterator(this.next);
+  }
+
+  end(){
+    return new Iterator(null);
+  }
+}
+
+class Iterator_{
+  constructor(element, max) {
+    this._element = element;
+    this._max = max;
+  }
+
+  set_element(new_el){ this._element = new_el; }
+  get_element(){ return this._element; }
+  set_max_element(new_max){ this._max = new_max; }
+  get_max_element(){ return this._max; }
+
+  __next__(){
+    if(this._element < 0 || this._element > this._max) throw "Ошибка! Элемент вышел за пределы Итератора!";
+    return ++this._element;
+  }
+
+  __back__(){
+    if(this._element < 0 || this._element > this._max) throw "Ошибка! Элемент вышел за пределы Итератора!";
+    return --this._element;
+  }
+}
+
+class Vector{
+  constructor(){
+    this._vector = [];
+  }
+
+  begin(){ return 0; }
+  end(){
+    if (this.size() + 1 != 0) return this.size();
+    else throw "Ошибка! size <= 0!";
+  }
+
+  front(){
+    if(this._vector[0] == null) throw "Error! The vector is empty or there is no first element!";
+    return this._vector[0];
+  }
+
+  back(){
+    if(this._vector[0] == null) throw "Error! The vector is empty or there is no first element!";
+    return this._vector[this.size() - 1];
+  }
+
+  push_back(value){
+    var size_tmp = this.size();
+    if(this.size() == 0) this._vector[size_tmp] = value;
+    else this._vector[size_tmp] = value;
+    this.resize(size_tmp + 1)
+  }
+
+  size(){
+    return this._vector.length;
+  }
+
+  clear(){
+    for(var i = this.begin(); i < this.end(); ++i){
+      delete this._vector[i];
+    } this.resize(0);
+  }
+
+  erase(){
+    for(var i = 0; i < arguments.length; ++i){
+      console.log(arguments[i]);
+    }
+
+    var tmp_length = this._vector.length;
+
+    for(var i = this.begin(); i < this.end(); ++i){
+      for(var j = 0; j < arguments.length; ++j){
+        if(arguments[j] == i){
+          delete this._vector[i];
+          --tmp_length;
+          break;
+        }
+      }
+    }
+    this._vector = this._vector.filter(function isNone(value) {
+      return value != "";
+    })
+    this._vector.length = tmp_length;
+  }
+
+  insert(pos, value){
+    if( pos < 0 || pos >= this.size()) throw "Ошибка! Параметр position указан неверно!";
+    this._vector[pos] = value;
+  }
+  
+  
+  static insert(vector, pos_first, pos_end, value){
+    if( pos_first < 0 || pos_end >= vector.size() || pos_first >= vector.size() || pos_end < 0) throw "Ошибка! Параметр position указан неверно!";
+    for(var i = pos_first; i < pos_end; ++i){
+      vector._vector[i] = value;
+    }
+  }
+
+  emplace(pos, value){
+    if( pos < 0 || pos >= this.size() || pos - 1 < 0) throw "Ошибка! Параметр position указан неверно!";
+    this.resize(this.size() + 1);
+    for(var i = 0; i < this.size(); ++i){
+      if(i == pos- 1){
+        for(var j = pos - 1; j < this.size(); ++j){
+          var tmp = this._vector[j];
+          this._vector[j] = this._vector[pos - 1];
+          this._vector[pos - 1] = tmp;
+        }
+        //this.output_vector();
+        break;
+      }
+    }
+    this._vector[pos - 1] = value;
+  }
+
+  emplace_back(pos, value){
+    if( pos < 0 || pos >= this.size() || pos + 1 >= this.size()) throw "Ошибка! Параметр position указан неверно!";
+    this.resize(this.size() + 1);
+    for(var i = 0; i < this.size(); ++i){
+      if(i == pos + 1){
+        for(var j = pos + 1; j < this.size(); ++j){
+          var tmp = this._vector[j];
+          this._vector[j] = this._vector[pos + 1];
+          this._vector[pos + 1] = tmp;
+        }
+        //this.output_vector();
+        break;
+      }
+    }
+    this._vector[pos + 1] = value;
+  }
+
+  isEmpty(){
+    if(this.size() == 0) return true;
+    return false;
+  }
+
+  pop_back(){
+    delete this._vector[this.size() - 1];
+    this.resize(this.size() - 1);
+  }
+
+  resize(value){
+    this._vector.length = value;
+  }
+
+  swap(vector){
+    this._vector = vector._vector;
+    this.resize(vector.size());
+  }
+  swap_2(vector_first, vector_second){
+    vector_first.resize(vector_second.size());
+    vector_first._vector = vector_second._vector;
+  }
+
+  output_vector(){
+    if(this.size() == 0) { console.log("null"); }
+    for(var i = this.begin(); i < this.end(); ++i){
+      console.log(this._vector[i]);
+    }
+  }
+}
 
 module.exports = {
   Std: Std, 
+  Iterator: Iterator_,
+  Vector: Vector,
 } 
