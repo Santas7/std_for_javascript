@@ -450,11 +450,101 @@ class File{
   }
 }
 
+class Sort{
+  BubbleSort(vector){
+    for (var i = 0; i < vector.size() - 1; i++)
+      for (var j = 0; j < vector.size() - i - 1; j++)
+        if (vector._vector[j] > vector._vector[j + 1])
+        {
+          var tmp = vector._vector[j];
+          vector._vector[j] = vector._vector[j + 1];
+          vector._vector[j + 1] = tmp;
+        }
+  }
+  SelectionSort(vector){
+    for(var i = 0, min = i; i < vector.size(); i++) {
+      for(var j = i+1; j < vector.size(); j++)
+          if(vector._vector[j] < vector._vector[min])
+              min = j; 
+      if (min != i) {
+           var tmp = vector._vector[i]; 
+           vector._vector[i] = vector._vector[min];
+           vector._vector[min] = tmp;      
+      }
+    }
+  }
+
+  ShellSort(vector)
+  {
+    var j;
+    for (var step = vector.size() / 2; step > 0; step /= 2)
+    {
+        for (var i = step; i < vector.size(); i++)
+        {
+          var tmp = vector._vector[i];
+          for (j = i; j >= step; j -= step)
+          {
+              if (tmp < vector._vector[j - step])
+                vector._vector[j] = vector._vector[j - step];
+              else
+                  break;
+          }
+          vector._vector[j] = tmp;
+        }
+    }
+  }
+
+  ShekerSort(vector)
+  {
+    var left = 0, right = vector.size() - 1, flag = 1;
+    while ((left < right) && (flag > 0))
+    {
+      flag = 0;
+      for (var i = left; i < right; i++)
+      {
+        if (vector._vector[i] > vector._vector[i + 1])
+        {
+          var tmp = vector._vector[i]; 
+          vector._vector[i] = vector._vector[i + 1];
+          vector._vector[i + 1] = tmp;   
+          flag = 1;
+        }
+      }
+      right--;
+
+      for (var i = right; i > left; i--)
+      {
+        if (vector._vector[i] < vector._vector[i - 1])
+        {
+          var tmp = vector._vector[i]; 
+          vector._vector[i] = vector._vector[i - 1];
+          vector._vector[i - 1] = tmp;   
+          flag = 1;
+        }
+      }
+      left++;
+    }
+  }
+
+  InsertSort(vector)
+  {
+    for (var i = 1, l = vector.size(); i < l; i++) {
+      const current = vector._vector[i];
+      var j = i;        
+      while (j > 0 && vector._vector[j - 1] > current) {
+        vector._vector[j] = vector._vector[j - 1];
+        j--;
+      }   
+      vector._vector[j] = current;
+    }    
+  }
+}
 
 module.exports = {
   Std: Std, 
   Iterator: Iterator_,
   Vector: Vector,
   List: List,
-  File: File
+  File: File,
+  Sort: Sort
 } 
