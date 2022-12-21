@@ -25,6 +25,11 @@ l1.output_list(); // 3->2->1->
 var file = new std_module.File('file.txt');
 file.read(); // "hello"
 file.write("hello world"); // in file.txt -> "hello world"
+
+// example with sort
+var all_sort = new std_module.Sort();
+// if example v1 = { 4, 2, 1, 3 }
+all_sort.BubbleSort(v1); // 1 2 3 4
 ```
 
 #FOR WEB:
