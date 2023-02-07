@@ -30,6 +30,24 @@ file.write("hello world"); // in file.txt -> "hello world"
 var all_sort = new std_module.Sort();
 // if example v1 = { 4, 2, 1, 3 }
 all_sort.BubbleSort(v1); // 1 2 3 4
+
+// dynamic memory ( virtual )
+var dm = new std_module.DynamicMemory();
+var x = dm.new(5); // memory allocation
+var y = dm.new(1); // memory allocation
+var z;
+
+// address record
+var ptr1 = dm.address(x);
+var ptr2 = dm.address(y);
+
+// value change by address
+x = dm.pointer(ptr1) + 5;
+y = dm.pointer(ptr2) + 2;
+
+// memory cleaning
+dm.free(ptr1); 
+dm.free(ptr2);
 ```
 
 #FOR WEB:
@@ -147,3 +165,14 @@ output_array()** - метод печати массива в консоль (о�
 **ShekerSort()** - шейкерная сортировка ( др словами улучшенный пузырек )
 
 **InsertSort()** - сортировка простыми вставками
+
+**std::dynamic_memory-->**\
+**new()** - выделение динамической памяти
+
+**free()** - очистка динамической памяти
+
+**address()** - метод для записи адреса памяти
+
+**pointer()** - метод для получения значения по адресу памяти ( указатель )
+
+**get_()** - все элементы в памяти
