@@ -620,6 +620,63 @@ class List2{
   } 
 }
 
+// virtual memory
+class DynamicMemory{
+  constructor(){
+    this.all_address = new Array();
+  }
+  get_address(){
+    while(true){
+      var tmp = Math.floor(Math.random() * 0b10000000000000000000000000000000), status = false;
+      if (this.all_address == null || this.all_address == [] || this.all_address.length == 0){return tmp;}
+      for (var i = 0; i < this.all_address.length; i++){
+        if (this.all_address[i][1] == tmp){status = true;}
+      }
+      if (status == false){return tmp;}
+    }
+  }
+  address(value){
+    var status = false;
+    var id = 0;
+    for (var i = 0; i < this.all_address.length; i++){
+      if (this.all_address[i][0] == value){id = i; status = true;}
+    }
+    if (status == false){ throw "Error! Адрес в памяти не найден, возможно память не была ранее выделена ( метод new )!"; }
+    return this.all_address[id][1];
+  }
+  get_()
+  {
+    for (var i = 0; i < this.all_address.length; i++){
+      console.log(this.all_address[i][0], this.all_address[i][1])
+    }
+  }
+
+  new(value){
+    var address_ = this.get_address();
+    this.all_address.push([value, address_])
+    return value;
+  }
+
+  pointer(address){
+    var status = false;
+    var id = 0;
+    for (var i = 0; i < this.all_address.length; i++){
+      if (this.all_address[i][1] == address){id = i; status = true;}
+    }
+    if (status == false){ throw "Error! Адрес в памяти не найден!"; }
+    return this.all_address[id][0];
+  }
+  delete(address){
+    var id = 0;
+    for (var i = 0; i < this.all_address.length; i++){
+      if (this.all_address[i][1] == address){id = i;}
+    }
+    this.all_address.splice(id, 1);
+    console.log("Память успешно очищена!");
+  }
+
+}
+
 module.exports = {
   Std: Std, 
   Iterator: Iterator_,
@@ -627,5 +684,6 @@ module.exports = {
   List: List,
   File: File,
   List2: List2,
-  Sort: Sort
+  Sort: Sort,
+  DynamicMemory: DynamicMemory
 } 
