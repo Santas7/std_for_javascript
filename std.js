@@ -1,5 +1,7 @@
+const { stderr } = require('process');
+
 const NAME_MODULE = "Std";
-const VERSION = "v1.0.0.1";
+const VERSION = "v1.0.0.2";
 const AUTOR = "&Santas7"
 const LINK_GITHUB = "https://github.com/Santas7/std_for_javascript"
 
@@ -161,12 +163,26 @@ class Std{
     "delete_by_position(pos) - удаление узла по позиции " + "\n" +
     "output_list() - вывод списка ( в консоль ) " + "\n\n" + 
 
+    "std::list ( двусвязный список )-->\n" +
+    "front() - доступ к первому элементу " + "\n" +
+    "back() - доступ к последнему элементу " + "\n" +
+    "clear() - очистка списка ( удаление всех узлов списка ) " + "\n" +
+    "begin() - возвращает итератор на первый элемент списка " + "\n" +
+    "end() - возвращает итератор на место после последнего элемента списка " + "\n" + 
+    "push_back() - добавление узла в конец списка" + "\n" +
+    "pop_back() - удаление последнего последнего узла списка" + "\n" +
+    "size() - размер списка" + "\n" +
+    "resize() - изменение размера списка " + "\n" +
+    "push_front() - добавление в начало списка" + "\n" +
+    "insert()" + "\n" +
+    "erase() " + "\n" + 
+    "emplace() " + "\n" + 
+    "emplace_back() " + "\n" + 
+    "sort() " + "\n" + 
+
     "std::file-->\n" +
     "write() - запись в файл " + "\n" +
-    "read() - чтение файла "  + "\n\n" +
-    
-    "std::sort-->\n" +
-    "сортировки разных типов начиная от простой сортировки пузырьком и заканчивая полноценным слиянием" + "\n"
+    "read() - чтение файла " + "\n"
   )}
 
   get_version_module(){ return __version__; }
@@ -453,6 +469,14 @@ class File{
   }
 }
 
+class Node2{
+  constructor(value, next, prev){
+    this.value = value;
+    this.next = next;
+    this.prev = prev;
+  }
+}
+
 class Sort{
   BubbleSort(vector){
     for (var i = 0; i < vector.size() - 1; i++)
@@ -543,11 +567,65 @@ class Sort{
   }
 }
 
+class List2{
+  constructor(){
+    this._count = 0;
+    this._head = null;
+    this._end = null;
+  }
+
+  size(){ return this._count; }
+
+  add(value){
+    var tmp = new Node();
+    tmp.next = null;
+    tmp.value = value;
+    if (this._head != null) {
+        tmp.prev = this._end;
+        this._end.next = tmp;
+        this._end = tmp;
+    }
+    else {
+        tmp.prev = null;
+        this._head = this._end = tmp;
+    }
+
+  }
+
+  push_back(value){
+    var tmp = new Node2(value, this._head, this._head.prev);
+    this._head.prev.next = tmp;
+    this._head.prev = tmp;
+    ++this._count;
+  }
+
+  push_front(value){
+    var tmp = new Node2(value, this._head.next, this._head);
+    this._head.next.prev = tmp;
+    this._head.next = tmp;
+    ++this._count;
+  }
+
+  print(){
+    var tmp = this._head;
+    if(this._head != null){
+      while(tmp){
+        console.log(tmp.value);
+        tmp = tmp.next;
+      }
+    }
+    else{
+      console.log("Список пуст!");
+    }
+  } 
+}
+
 module.exports = {
   Std: Std, 
   Iterator: Iterator_,
   Vector: Vector,
   List: List,
   File: File,
+  List2: List2,
   Sort: Sort
 } 
