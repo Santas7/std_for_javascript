@@ -46,8 +46,8 @@ x = dm.pointer(ptr1) + 5;
 y = dm.pointer(ptr2) + 2;
 
 // memory cleaning
-dm.free(ptr1); 
-dm.free(ptr2);
+dm.delete(ptr1); 
+dm.delete(ptr2);
 ```
 
 #FOR WEB:
