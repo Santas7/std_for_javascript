@@ -1,7 +1,7 @@
 const { stderr } = require('process');
 
 const NAME_MODULE = "Std";
-const VERSION = "v1.0.0.3";
+const VERSION = "v1.0.0.4";
 const AUTOR = "&Santas7"
 const LINK_GITHUB = "https://github.com/Santas7/std_for_javascript"
 
@@ -362,88 +362,92 @@ class Vector{
   }
 }
 
-class Node{
-  constructor(){
-    this.next;
-    this.value;
+class LinkedListNode {
+  constructor(value, prev = null, next = null) {
+    this.value = value;
+    this.prev = prev;
+    this.next = next;
   }
 }
-class List{
-  constructor(){
-    this._head = null;
-    this._count = 0; 
+class LinkedList {
+  constructor() {
+    this.head = null;
+    this.tail = null;
   }
-
-  get_count() { return this._count; }
-  isEmpty() { return this._count == 0; }
-
-  add(value, node = null){
-    var elem = new Node();
-    elem.value = value;
-    ++this._count;
-    if (node == null) {
-      if (this._head == null) {
-        elem.next = null;
-        this._head = elem;
-      }
-      else {
-        elem.next = this._head;
-        this._head = elem;
-      }
-      return elem;
+  insert_in_head(value) {
+    const new_node = new LinkedListNode(value, null, this.head);
+    if (this.head) {
+      this.head.prev = new_node;
+    } else {
+      this.tail = new_node;
     }
-    else{
-      elem.next = node.next;
-      node.next = elem;
-    }
-  }  
-
-  delete_by_position(node){
-    if (this.isEmpty()) return null;
-    if (node == null) { return null; } // В списке нет узлов
-    --this._count;
-    if (node == this._head){
-      this._head = node.next;
-      delete node.next;
-      delete node.value;
-      return this._head;
-    }
-    else{
-      var prev = new Node();
-      var p = this._head;
-      while (p.next != node)
-        p = p.next;
-      prev = p;
-      prev.next = node.next;
-      delete node.next;
-      delete node.value;
-      return prev;
-    }
+    this.head = new_node;
   }
-
-  clear(){
-    this._head = null;
-    while(this._head){
-      delete this._head.next;
-      delete this._head.value;
-      this._head = this._head.next;
+  insert_in_tail(value) {
+    const new_node = new LinkedListNode(value, this.tail, null);
+    if (this.tail) {
+      this.tail.next = new_node;
+    } else {
+      this.head = new_node;
     }
-    this._count = 0;
-    this._head = null;
+    this.tail = new_node;
   }
-
-  output_list(){
-    if(this._head != null){
-      var res = "";
-      var tmp = this._head;
-      while(tmp){
-        res += tmp.value+"->";
-        tmp = tmp.next;
-      }
-      console.log(res);
+  delete_head() {
+    if (!this.head) {
+      return null;
     }
-    else{
-      console.log("Список пуст!");
+    const value = this.head.value;
+    this.head = this.head.next;
+    if (this.head) {
+      this.head.prev = null;
+    } else {
+      this.tail = null;
+    }
+    return value;
+  }
+  delete_tail() {
+    if (!this.tail) {
+      return null;
+    }
+    const value = this.tail.value;
+    this.tail = this.tail.prev;
+    if (this.tail) {
+      this.tail.next = null;
+    } else {
+      this.head = null;
+    }
+    return value;
+  }
+  find(value) {
+    let current = this.head;
+    while (current) {
+      if (current.value === value) {
+        return current;
+      }
+      current = current.next;
+    }
+    return null;
+  }
+  delete(value) {
+    const node_to_delete = this.find(value);
+    if (!node_to_delete) {
+      return null;
+    }
+    if (node_to_delete === this.head) {
+      return this.deleteHead();
+    }
+    if (node_to_delete === this.tail) {
+      return this.deleteTail();
+    }
+    node_to_delete.prev.next = node_to_delete.next;
+    node_to_delete.next.prev = node_to_delete.prev;
+    return node_to_delete.value;
+  }
+  print() {
+    let current = this.head;
+    while (current) {
+      console.log(current.value);
+      current = current.next;
     }
   }
 }
@@ -683,7 +687,7 @@ module.exports = {
   Vector: Vector,
   List: List,
   File: File,
-  List2: List2,
+  LinkedList: LinkedList,
   Sort: Sort,
   DynamicMemory: DynamicMemory
 } 
