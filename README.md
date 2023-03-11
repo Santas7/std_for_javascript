@@ -21,6 +21,13 @@ l1.add(2);
 l1.add(3);
 l1.output_list(); // 3->2->1->
 
+// example with add for linked list
+var l2 = new std_module.LinkedList();
+l2.insert_in_head(2);
+l2.insert_in_tail(1);
+l2.insert_in_tail(3);
+l2.print(); 
+
 // example with add file
 var file = new std_module.File('file.txt');
 file.read(); // "hello"
