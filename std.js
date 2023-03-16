@@ -1,7 +1,7 @@
 const { stderr } = require('process');
 
 const NAME_MODULE = "Std";
-const VERSION = "v1.0.0.5";
+const VERSION = "v1.0.0.6";
 const AUTOR = "&Santas7"
 const LINK_GITHUB = "https://github.com/Santas7/std_for_javascript"
 
@@ -571,7 +571,7 @@ class Sort{
   }
 }
 
-class List2{
+class List{
   constructor(){
     this._count = 0;
     this._head = null;
@@ -759,6 +759,65 @@ class Set {
   }
 }
 
+class Map {
+  constructor() {
+    this.keys = [];
+    this.values = [];
+  }
+  size() {
+    return this.keys.length;
+  }
+  empty() {
+    return this.keys.length === 0;
+  }
+  clear() {
+    this.keys = [];
+    this.values = [];
+  }
+  delete(key) {
+    const index = this.keys.indexOf(key);
+    if (index !== -1) {
+      this.keys.splice(index, 1);
+      this.values.splice(index, 1);
+      return true;
+    }
+    return false;
+  }
+  has(key) {
+    return this.keys.includes(key);
+  }
+  set(key, value) {
+    const index = this.keys.indexOf(key);
+    if (index !== -1) {
+      this.values[index] = value;
+    } else {
+      this.keys.push(key);
+      this.values.push(value);
+    }
+  }
+  get(key) {
+    const index = this.keys.indexOf(key);
+    if (index !== -1) {
+      return this.values[index];
+    }
+    return undefined;
+  }
+  entries() {
+    return this.keys.map((key, index) => [key, this.values[index]]);
+  }
+  keys() {
+    return this.keys.slice();
+  }
+  values() {
+    return this.values.slice();
+  }
+  forEach(callback) {
+    this.keys.forEach((key, index) => {
+      callback(this.values[index], key, this);
+    });
+  }
+}
+
 module.exports = {
   Std: Std, 
   Iterator: Iterator_,
@@ -769,4 +828,5 @@ module.exports = {
   Sort: Sort,
   DynamicMemory: DynamicMemory,
   Set: Set,
+  Map: Map,
 } 
