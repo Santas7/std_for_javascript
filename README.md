@@ -67,6 +67,11 @@ var m = new std_module.Map();
 m.set("3", 0);
 m.set("1", 3);
 m.set("2", 2); // {"3": 0; "1": 3; "2": 2}
+
+// example std::hash
+var h = new std_module.Hash();
+console.log(h.hashString("Hello, world!"));
+
 ```
 
 #FOR WEB:
