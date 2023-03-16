@@ -55,6 +55,18 @@ y = dm.pointer(ptr2) + 2;
 // memory cleaning
 dm.delete(ptr1); 
 dm.delete(ptr2);
+
+// example std::set< >
+var set = new std_module.Set();
+set.add(3);
+set.add(2);
+set.add(4);
+
+// example std::map< >
+var m = new std_module.Map();
+m.set("3", 0);
+m.set("1", 3);
+m.set("2", 2); // {"3": 0; "1": 3; "2": 2}
 ```
 
 #FOR WEB:
