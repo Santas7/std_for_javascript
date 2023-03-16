@@ -1,7 +1,7 @@
 const { stderr } = require('process');
 
 const NAME_MODULE = "Std";
-const VERSION = "v1.0.0.6";
+const VERSION = "v1.0.0.7";
 const AUTOR = "&Santas7"
 const LINK_GITHUB = "https://github.com/Santas7/std_for_javascript"
 
@@ -818,6 +818,68 @@ class Map {
   }
 }
 
+function Hash() {}
+
+Hash.prototype.hash = function (obj) {
+  if (typeof obj === "number") {
+    return this.hashNumber(obj);
+  } else if (typeof obj === "string") {
+    return this.hashString(obj);
+  } else if (Array.isArray(obj)) {
+    return this.hashArray(obj);
+  } else if (typeof obj === "object" && obj !== null) {
+    return this.hashObject(obj);
+  } else {
+    return this.hashDefault(obj);
+  }
+};
+
+Hash.prototype.hashNumber = function (num) {
+  num = num | 0;
+  num = num < 0 ? -num : num;
+  return num;
+};
+
+Hash.prototype.hashString = function (str) {
+  var hash = 0;
+  for (var i = 0; i < str.length; i++) {
+    var char = str.charCodeAt(i);
+    hash = (hash << 5) - hash + char;
+    hash = hash | 0;
+  }
+  return hash;
+};
+
+Hash.prototype.hashArray = function (arr) {
+  var hash = 0;
+  for (var i = 0; i < arr.length; i++) {
+    var value = arr[i];
+    var valueHash = this.hash(value);
+    hash = (hash << 5) - hash + valueHash;
+    hash = hash | 0;
+  }
+  return hash;
+};
+
+Hash.prototype.hashObject = function (obj) {
+  var hash = 0;
+  for (var key in obj) {
+    if (obj.hasOwnProperty(key)) {
+      var value = obj[key];
+      var valueHash = this.hash(value);
+      var keyHash = this.hashString(key);
+      hash = (hash << 5) - hash + keyHash + valueHash;
+      hash = hash | 0;
+    }
+  }
+  return hash;
+};
+
+Hash.prototype.hashDefault = function (obj) {
+  var str = obj.toString();
+  return this.hashString(str);
+};
+
 module.exports = {
   Std: Std, 
   Iterator: Iterator_,
@@ -829,4 +891,5 @@ module.exports = {
   DynamicMemory: DynamicMemory,
   Set: Set,
   Map: Map,
+  Hash: Hash
 } 
