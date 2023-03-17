@@ -1,4 +1,5 @@
 # std_for_javascript
+Tags: std for js, std for javascript, STL for js, STL for javascript
 
 ## FOR NODE.JS:
 
