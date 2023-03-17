@@ -1,7 +1,7 @@
 const { stderr } = require('process');
 
 const NAME_MODULE = "Std";
-const VERSION = "v1.0.1.1";
+const VERSION = "v1.0.1.2";
 const AUTOR = "&Santas7"
 const LINK_GITHUB = "https://github.com/Santas7/std_for_javascript"
 
@@ -930,6 +930,34 @@ Hash.prototype.hashDefault = function (obj) {
   return this.hashString(str);
 };
 
+class Any {
+  constructor(value) {
+    this.value = value;
+    this.type = typeof value;
+  }
+
+  getValue() {
+    return this.value;
+  }
+
+  getType() {
+    return this.type;
+  }
+
+  setValue(value) {
+    this.value = value;
+    this.type = typeof value;
+  }
+
+  hasValue() {
+    return this.value !== undefined;
+  }
+
+  reset() {
+    this.value = undefined;
+    this.type = undefined;
+  }
+}
 
 module.exports = {
   Std: Std, 
@@ -942,5 +970,6 @@ module.exports = {
   DynamicMemory: DynamicMemory,
   Set: Set,
   Map: Map,
-  Hash: Hash
+  Hash: Hash, 
+  Any: Any,
 } 
