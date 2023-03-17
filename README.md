@@ -1,6 +1,6 @@
 # std_for_javascript
 
-#FOR NODE.JS:
+## FOR NODE.JS:
 
 ```javascript
 const std_module = require('./std');
@@ -79,7 +79,7 @@ var a = new std_module.Any();
 a.setValue(1);
 ```
 
-#FOR WEB:
+## FOR WEB:
 ```html
 <script src="./std.js"></script>
 <script src="main.js"></script>
