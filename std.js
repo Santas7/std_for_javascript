@@ -1,7 +1,7 @@
 const { stderr } = require('process');
 
 const NAME_MODULE = "Std";
-const VERSION = "v1.0.0.8";
+const VERSION = "v1.0.1.1";
 const AUTOR = "&Santas7"
 const LINK_GITHUB = "https://github.com/Santas7/std_for_javascript"
 
@@ -111,6 +111,22 @@ class Std{
   }
 
   load_value_in_lm(){ return JSON.parse(localStorage.getItem(this.__key__)); }
+
+  atoi(str) {
+    let num = 0, sign = 1, i = 0;
+    
+    // Check the sign of the number
+    if (str[0] === "-") {
+      sign = -1; i++;
+    } else if (str[0] === "+") i++;
+    
+    // Go through the characters of the string and get a number
+    for (i; i < str.length; i++) {
+      if (str[i] >= "0" && str[i] <= "9") num = num * 10 + (str[i] - "0");
+      else break;
+    }
+    return num * sign;
+  }
 
   stoi(str, pos = 0, base = 10) {
     if (typeof str !== "string") {
