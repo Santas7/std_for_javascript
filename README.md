@@ -6,6 +6,7 @@
 const std_module = require('./std');
 var std = new std_module.Std();
 std.cout("Hello, world!");
+console.log(std.stoi("12345")); // number is 12345
 
 // example with add vector
 var v1 = new std_module.Vector();
