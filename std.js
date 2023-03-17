@@ -112,6 +112,40 @@ class Std{
 
   load_value_in_lm(){ return JSON.parse(localStorage.getItem(this.__key__)); }
 
+  stoi(str, pos = 0, base = 10) {
+    if (typeof str !== "string") {
+      throw new TypeError("Argument must be a string");
+    }
+    let value = 0, negative = false;
+    const max = Number.MAX_SAFE_INTEGER;
+    const min = Number.MIN_SAFE_INTEGER;
+    let i = pos;
+    // skip the leading spaces
+    while (i < str.length && str[i] === " ") 
+      i++;
+
+    // determine the sign of the number
+    if (i < str.length && (str[i] === "+" || str[i] === "-")) {
+      negative = str[i] === "-"; i++;
+    }
+    // Define the number system
+    if (i < str.length - 1 && str[i] === "0" && str[i+1] === "x") {
+      base = 16; i += 2;
+    }
+    // convert the number
+    while (i < str.length) {
+      const digit = parseInt(str[i], base);
+      if (isNaN(digit)) break;
+      value *= base;
+      value += digit;
+      // Check for overflow
+      if (value > max || value < min) 
+        throw new RangeError("Value is out of range");
+      i++;
+    }
+    return negative ? -value : value;
+  }
+
   help(){ console.log(
     "База STD-->\n" +
 
@@ -879,6 +913,7 @@ Hash.prototype.hashDefault = function (obj) {
   var str = obj.toString();
   return this.hashString(str);
 };
+
 
 module.exports = {
   Std: Std, 
