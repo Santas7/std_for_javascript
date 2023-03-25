@@ -1,7 +1,7 @@
 const { stderr } = require('process');
 
 const NAME_MODULE = "Std";
-const VERSION = "v1.0.1.6";
+const VERSION = "v1.0.1.8";
 const AUTOR = "&Santas7"
 const LINK_GITHUB = "https://github.com/Santas7/std_for_javascript"
 
@@ -1091,6 +1091,225 @@ class PriorityQueue {
   }
 }
 
+class UnorderedSet {
+  constructor() {
+    this.items = {};
+  }
+
+  insert(element) {
+    if (!this.has(element)) {
+      this.items[element] = true;
+      return true;
+    }
+    return false;
+  }
+
+  erase(element) {
+    if (this.has(element)) {
+      delete this.items[element];
+      return true;
+    }
+    return false;
+  }
+
+  has(element) {
+    return Object.prototype.hasOwnProperty.call(this.items, element);
+  }
+
+  clear() {
+    this.items = {};
+  }
+
+  size() {
+    return Object.keys(this.items).length;
+  }
+
+  isEmpty() {
+    return this.size() === 0;
+  }
+
+  values() {
+    return Object.keys(this.items);
+  }
+}
+
+class UnorderedMap {
+  constructor() {
+    this.items = {};
+  }
+
+  set(key, value) {
+    this.items[key] = value;
+  }
+
+  get(key) {
+    return this.items[key];
+  }
+
+  has(key) {
+    return Object.prototype.hasOwnProperty.call(this.items, key);
+  }
+
+  delete(key) {
+    if (this.has(key)) {
+      delete this.items[key];
+      return true;
+    }
+    return false;
+  }
+
+  clear() {
+    this.items = {};
+  }
+
+  size() {
+    return Object.keys(this.items).length;
+  }
+
+  isEmpty() {
+    return this.size() === 0;
+  }
+
+  keys() {
+    return Object.keys(this.items);
+  }
+
+  values() {
+    return Object.values(this.items);
+  }
+
+  entries() {
+    return Object.entries(this.items);
+  }
+}
+
+class UnorderedMultiset {
+  constructor() {
+    this.items = {};
+  }
+
+  insert(element) {
+    if (!this.has(element)) {
+      this.items[element] = 1;
+    } else {
+      this.items[element]++;
+    }
+  }
+
+  erase(element) {
+    if (this.has(element)) {
+      this.items[element]--;
+      if (this.items[element] === 0) {
+        delete this.items[element];
+      }
+      return true;
+    }
+    return false;
+  }
+
+  has(element) {
+    return Object.prototype.hasOwnProperty.call(this.items, element);
+  }
+
+  clear() {
+    this.items = {};
+  }
+
+  size() {
+    let count = 0;
+    for (let key in this.items) {
+      count += this.items[key];
+    }
+    return count;
+  }
+
+  isEmpty() {
+    return this.size() === 0;
+  }
+
+  count(element) {
+    return this.has(element) ? this.items[element] : 0;
+  }
+
+  values() {
+    let result = [];
+    for (let key in this.items) {
+      for (let i = 0; i < this.items[key]; i++) {
+        result.push(key);
+      }
+    }
+    return result;
+  }
+}
+
+class UnorderedMultimap {
+  constructor() {
+    this.items = {};
+  }
+
+  set(key, value) {
+    if (!this.has(key)) {
+      this.items[key] = [value];
+    } else {
+      this.items[key].push(value);
+    }
+  }
+
+  get(key) {
+    return this.items[key];
+  }
+
+  has(key) {
+    return Object.prototype.hasOwnProperty.call(this.items, key);
+  }
+
+  delete(key) {
+    if (this.has(key)) {
+      delete this.items[key];
+      return true;
+    }
+    return false;
+  }
+
+  clear() {
+    this.items = {};
+  }
+
+  size() {
+    let count = 0;
+    for (let key in this.items) {
+      count += this.items[key].length;
+    }
+    return count;
+  }
+
+  isEmpty() {
+    return this.size() === 0;
+  }
+
+  keys() {
+    return Object.keys(this.items);
+  }
+
+  values() {
+    let result = [];
+    for (let key in this.items) {
+      result = result.concat(this.items[key]);
+    }
+    return result;
+  }
+
+  entries() {
+    let result = [];
+    for (let key in this.items) {
+      for (let i = 0; i < this.items[key].length; i++) {
+        result.push([key, this.items[key][i]]);
+      }
+    }
+    return result;
+  }
+}
+
 module.exports = {
   Std: Std, 
   Iterator: Iterator_,
@@ -1106,5 +1325,9 @@ module.exports = {
   Any: Any,
   Stack: Stack,
   Queue: Queue,
-  PriorityQueue: PriorityQueue
+  PriorityQueue: PriorityQueue,
+  UnorderedSet: UnorderedSet,
+  UnorderedMap: UnorderedMap,
+  UnorderedMultiset: UnorderedMultiset,
+  UnorderedMultimap: UnorderedMultimap
 } 
