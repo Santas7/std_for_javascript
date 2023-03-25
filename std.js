@@ -1,7 +1,7 @@
 const { stderr } = require('process');
 
 const NAME_MODULE = "Std";
-const VERSION = "v1.0.1.8";
+const VERSION = "v1.0.1.10";
 const AUTOR = "&Santas7"
 const LINK_GITHUB = "https://github.com/Santas7/std_for_javascript"
 
@@ -1310,6 +1310,151 @@ class UnorderedMultimap {
   }
 }
 
+class FlatSet {
+  constructor(comparator = (a, b) => a - b) {
+    this.comparator = comparator;
+    this.items = [];
+  }
+
+  insert(value) {
+    const index = this.items.findIndex(item => this.comparator(item, value) >= 0);
+    if (index === -1) {
+      this.items.push(value);
+    } else if (this.comparator(this.items[index], value) !== 0) {
+      this.items.splice(index, 0, value);
+    }
+  }
+
+  erase(value) {
+    const index = this.items.findIndex(item => this.comparator(item, value) === 0);
+    if (index !== -1) {
+      this.items.splice(index, 1);
+    }
+  }
+
+  clear() {
+    this.items = [];
+  }
+
+  size() {
+    return this.items.length;
+  }
+
+  empty() {
+    return this.items.length === 0;
+  }
+
+  has(value) {
+    return this.items.findIndex(item => this.comparator(item, value) === 0) !== -1;
+  }
+
+  lower_bound(value) {
+    return this.items.findIndex(item => this.comparator(item, value) >= 0);
+  }
+
+  upper_bound(value) {
+    return this.items.findIndex(item => this.comparator(item, value) > 0);
+  }
+
+  begin() {
+    return this.items[Symbol.iterator]();
+  }
+
+  end() {
+    return this.items[Symbol.iterator]();
+  }
+
+  [Symbol.iterator]() {
+    return this.items[Symbol.iterator]();
+  }
+
+  toJSON() {
+    return this.items;
+  }
+
+  static fromJSON(json, comparator = (a, b) => a - b) {
+    const set = new FlatSet(comparator);
+    set.items = json;
+    return set;
+  }
+}
+
+class FlatMap {
+  constructor(comparator = (a, b) => a - b) {
+    this.comparator = comparator;
+    this.items = [];
+  }
+
+  insert(key, value) {
+    const index = this.items.findIndex(item => this.comparator(item.key, key) >= 0);
+    if (index === -1) {
+      this.items.push({ key, value });
+    } else if (this.comparator(this.items[index].key, key) !== 0) {
+      this.items.splice(index, 0, { key, value });
+    } else {
+      this.items[index].value = value;
+    }
+  }
+
+  erase(key) {
+    const index = this.items.findIndex(item => this.comparator(item.key, key) === 0);
+    if (index !== -1) {
+      this.items.splice(index, 1);
+    }
+  }
+
+  clear() {
+    this.items = [];
+  }
+
+  size() {
+    return this.items.length;
+  }
+
+  empty() {
+    return this.items.length === 0;
+  }
+
+  has(key) {
+    return this.items.findIndex(item => this.comparator(item.key, key) === 0) !== -1;
+  }
+
+  get(key) {
+    const index = this.items.findIndex(item => this.comparator(item.key, key) === 0);
+    return index !== -1 ? this.items[index].value : undefined;
+  }
+
+  lower_bound(key) {
+    return this.items.findIndex(item => this.comparator(item.key, key) >= 0);
+  }
+
+  upper_bound(key) {
+    return this.items.findIndex(item => this.comparator(item.key, key) > 0);
+  }
+
+  begin() {
+    return this.items[Symbol.iterator]();
+  }
+
+  end() {
+    return this.items[Symbol.iterator]();
+  }
+
+  [Symbol.iterator]() {
+    return this.items[Symbol.iterator]();
+  }
+
+  toJSON() {
+    return this.items;
+  }
+
+  static fromJSON(json, comparator = (a, b) => a - b) {
+    const map = new FlatMap(comparator);
+    map.items = json;
+    return map;
+  }
+}
+
 module.exports = {
   Std: Std, 
   Iterator: Iterator_,
@@ -1329,5 +1474,7 @@ module.exports = {
   UnorderedSet: UnorderedSet,
   UnorderedMap: UnorderedMap,
   UnorderedMultiset: UnorderedMultiset,
-  UnorderedMultimap: UnorderedMultimap
+  UnorderedMultimap: UnorderedMultimap,
+  FlatSet: FlatSet,
+  FlatMap: FlatMap
 } 
