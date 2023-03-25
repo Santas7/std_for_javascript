@@ -1,7 +1,7 @@
 const { stderr } = require('process');
 
 const NAME_MODULE = "Std";
-const VERSION = "v1.0.1.4";
+const VERSION = "v1.0.1.6";
 const AUTOR = "&Santas7"
 const LINK_GITHUB = "https://github.com/Santas7/std_for_javascript"
 
@@ -1044,6 +1044,53 @@ class Queue {
   }
 }
 
+class PriorityQueue {
+  constructor() {
+    this.items = [];
+  }
+
+  enqueue(element, priority) {
+    let queueElement = { element, priority };
+    let added = false;
+    for (let i = 0; i < this.items.length; i++) {
+      if (queueElement.priority < this.items[i].priority) {
+        this.items.splice(i, 0, queueElement);
+        added = true;
+        break;
+      }
+    }
+    if (!added) {
+      this.items.push(queueElement);
+    }
+  }
+
+  dequeue() {
+    if (this.items.length == 0) {
+      return "Underflow";
+    }
+    return this.items.shift().element;
+  }
+
+  front() {
+    if (this.items.length == 0) {
+      return "No elements in Queue";
+    }
+    return this.items[0].element;
+  }
+
+  isEmpty() {
+    return this.items.length == 0;
+  }
+
+  size() {
+    return this.items.length;
+  }
+
+  clear() {
+    this.items = [];
+  }
+}
+
 module.exports = {
   Std: Std, 
   Iterator: Iterator_,
@@ -1058,5 +1105,6 @@ module.exports = {
   Hash: Hash, 
   Any: Any,
   Stack: Stack,
-  Queue: Queue
+  Queue: Queue,
+  PriorityQueue: PriorityQueue
 } 
