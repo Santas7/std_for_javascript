@@ -1,7 +1,7 @@
 const { stderr } = require('process');
 
 const NAME_MODULE = "Std";
-const VERSION = "v1.0.1.2";
+const VERSION = "v1.0.1.4";
 const AUTOR = "&Santas7"
 const LINK_GITHUB = "https://github.com/Santas7/std_for_javascript"
 
@@ -959,6 +959,91 @@ class Any {
   }
 }
 
+class Stack {
+  constructor() {
+    this.items = [];
+  }
+
+  push(element) {
+    this.items.push(element);
+  }
+
+  pop() {
+    if (this.items.length == 0) {
+      return "Underflow";
+    }
+    return this.items.pop();
+  }
+
+  peek() {
+    return this.items[this.items.length - 1];
+  }
+
+  isEmpty() {
+    return this.items.length == 0;
+  }
+
+  size() {
+    return this.items.length;
+  }
+
+  clear() {
+    this.items = [];
+  }
+
+  print() {
+    let str = "";
+    for (let i = 0; i < this.items.length; i++) {
+      str += this.items[i] + " ";
+    }
+    console.log(str);
+  }
+}
+
+class Queue {
+  constructor() {
+    this.items = [];
+  }
+
+  enqueue(element) {
+    this.items.push(element);
+  }
+
+  dequeue() {
+    if (this.items.length == 0) {
+      return "Underflow";
+    }
+    return this.items.shift();
+  }
+
+  front() {
+    if (this.items.length == 0) {
+      return "No elements in Queue";
+    }
+    return this.items[0];
+  }
+
+  isEmpty() {
+    return this.items.length == 0;
+  }
+
+  size() {
+    return this.items.length;
+  }
+
+  clear() {
+    this.items = [];
+  }
+
+  print() {
+    let str = "";
+    for (let i = 0; i < this.items.length; i++) {
+      str += this.items[i] + " ";
+    }
+    console.log(str);
+  }
+}
+
 module.exports = {
   Std: Std, 
   Iterator: Iterator_,
@@ -972,4 +1057,6 @@ module.exports = {
   Map: Map,
   Hash: Hash, 
   Any: Any,
+  Stack: Stack,
+  Queue: Queue
 } 
