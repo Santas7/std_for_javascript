@@ -78,6 +78,42 @@ console.log(h.hashString("Hello, world!"));
 // example std::any
 var a = new std_module.Any();
 a.setValue(1);
+
+// example std::stack
+var stack = new std_module.Stack();
+stack.push(1);
+stack.push(2);
+stack.push(3);
+stack.print(); // 1 2 3
+
+// example std::queue
+var queue = new std_module.Queue();
+queue.enqueue(5);
+queue.enqueue(4);
+queue.enqueue(2);
+queue.print(); // 5 4 2
+
+// example std::unordered_set
+var unset = new std_module.UnorderedSet();
+unset.insert(1);
+unset.insert(3);
+unset.insert(2);
+
+// example std::unordered_map
+var unmap = new std_module.UnorderedMap();
+unmap.insert(1);
+unmap.insert(3);
+unmap.insert(2);
+
+// example std::unordered_multimap
+var unmulti_map = new std_module.UnorderedMultimap();
+unmulti_map.insert(1);
+unmulti_map.insert(2);
+
+// example std::unordered_multiset
+var unmulti_set = new std_module.UnorderedMultiset();
+unmulti_set.insert(1);
+unmulti_set.insert(2);
 ```
 
 ## FOR WEB:
@@ -284,3 +320,4 @@ output_array()** - метод печати массива в консоль (о�
 ## ✅std::any
 
 std::any в C++ позволяет хранить значение любого типа в одном объекте, а также получать доступ к этому значению без необходимости знать его тип.
+
