@@ -1586,6 +1586,129 @@ class Input {
     }
 }
 
+// class Checkbox for html
+class Checkbox {
+    constructor(text, callback, parent) {
+        this.text = text;
+        this.callback = callback;
+        this.element = document.createElement("input");
+        this.element.type = "checkbox";
+        this.element.addEventListener("change", callback);
+
+        if (parent)
+            parent.appendChild(this.element);
+        else
+            document.body.appendChild(this.element);
+    }
+
+    getElement() {
+        return this.element;
+    }
+
+    getText() {
+        return this.text;
+    }
+
+    getCallback() {
+        return this.callback;
+    }
+
+    setCallback(callback) {
+        this.callback = callback;
+        this.element.addEventListener("change", callback);
+    }
+
+    // set text
+    setText(text) {
+        this.text = text;
+    }
+
+    // set element
+    setElement(element) {
+        this.element = element;
+    }
+
+    // remove
+    remove() {
+        this.element.remove();
+    }
+
+    // create checkbox
+    static create(text, callback) {
+        return new Checkbox(text, callback);
+    }
+
+    // append checkbox on html
+    append(checkbox, parent) {
+        parent.appendChild(checkbox.getElement());
+        return checkbox;
+    }
+
+    // remove checkbox
+    remove(checkbox) {
+        checkbox.remove();
+    }
+}
+
+// class Text for html
+class Text {
+    constructor(text, tag_name, parent) {
+        this.text = text;
+        this.element = undefined;
+        if (tag_name && tag_name.length > 0)
+            this.element = document.createElement(tag_name);
+        else
+            this.element = document.createElement("p");
+
+        this.element.innerHTML = text;
+
+        if (parent)
+            parent.appendChild(this.element);
+        else
+            document.body.appendChild(this.element);
+    }
+
+    getElement() {
+        return this.element;
+    }
+
+    getText() {
+        return this.text;
+    }
+
+    // set text
+    setText(text) {
+        this.text = text;
+        this.element.innerHTML = text;
+    }
+
+    // set element
+    setElement(element) {
+        this.element = element;
+    }
+
+    // remove
+    remove() {
+        this.element.remove();
+    }
+
+    // create text
+    static create(text, tag_name, parent) {
+        return new Text(text, tag_name, parent);
+    }
+
+    // append text on html
+    append(text, parent) {
+        parent.appendChild(text.getElement());
+        return text;
+    }
+
+    // remove text
+    remove(text) {
+        text.remove();
+    }
+}
+
 module.exports = {
   Std: Std, 
   Iterator: Iterator_,
@@ -1608,5 +1731,8 @@ module.exports = {
   UnorderedMultimap: UnorderedMultimap,
   FlatSet: FlatSet,
   FlatMap: FlatMap,
-  Button: Button
+  Button: Button,
+  Input: Input,
+  Checkbox: Checkbox,
+  Text: Text
 } 
