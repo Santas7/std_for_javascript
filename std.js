@@ -1461,7 +1461,9 @@ class Button {
         this.callback = callback;
         this.element = document.createElement("button");
         this.element.innerHTML = text;
-        this.element.addEventListener("click", callback);
+
+        if (this.callback)
+            this.element.addEventListener("click", callback);
 
         if (parent)
             parent.appendChild(this.element);
@@ -1518,6 +1520,72 @@ class Button {
         button.remove();
     }
 }
+
+// class Input for html
+class Input {
+    constructor(text, callback, parent) {
+        this.text = text;
+        this.callback = callback;
+        this.element = document.createElement("input");
+        this.element.innerHTML = text;
+        this.element.addEventListener("input", callback);
+
+        if (parent)
+            parent.appendChild(this.element);
+        else
+            document.body.appendChild(this.element);
+    }
+
+    getElement() {
+        return this.element;
+    }
+
+    getText() {
+        return this.text;
+    }
+
+    getCallback() {
+        return this.callback;
+    }
+
+    setCallback(callback) {
+        this.callback = callback;
+        this.element.addEventListener("input", callback);
+    }
+
+    // set text
+    setText(text) {
+        this.text = text;
+        this.element.innerHTML = text;
+    }
+
+    // set element
+    setElement(element) {
+        this.element = element;
+    }
+
+    // remove
+    remove() {
+        this.element.remove();
+    }
+
+    // create input
+    static create(text, callback) {
+        return new Input(text, callback);
+    }
+
+    // append input panel on html
+    append(input, parent) {
+        parent.appendChild(input.getElement());
+        return input;
+    }
+
+    // remove input
+    remove(input) {
+        input.remove();
+    }
+}
+
 module.exports = {
   Std: Std, 
   Iterator: Iterator_,
