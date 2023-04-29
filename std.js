@@ -1,5 +1,4 @@
-const { stderr } = require('process');
-
+// const { stderr } = require("process");
 const NAME_MODULE = "Std";
 const VERSION = "v1.0.1.10";
 const AUTOR = "&Santas7"
@@ -1455,6 +1454,70 @@ class FlatMap {
   }
 }
 
+// class button for html
+class Button {
+    constructor(text, callback, parent) {
+        this.text = text;
+        this.callback = callback;
+        this.element = document.createElement("button");
+        this.element.innerHTML = text;
+        this.element.addEventListener("click", callback);
+
+        if (parent)
+            parent.appendChild(this.element);
+        else
+            document.body.appendChild(this.element);
+    }
+
+    getElement() {
+        return this.element;
+    }
+
+    getText() {
+        return this.text;
+    }
+
+    getCallback() {
+        return this.callback;
+    }
+
+    setCallback(callback) {
+        this.callback = callback;
+        this.element.addEventListener("click", callback);
+    }
+
+    // set text
+    setText(text) {
+        this.text = text;
+        this.element.innerHTML = text;
+    }
+
+    // set element
+    setElement(element) {
+        this.element = element;
+    }
+
+    // remove
+    remove() {
+        this.element.remove();
+    }
+
+    // create button
+    static create(text, callback) {
+        return new Button(text, callback);
+    }
+
+    // append button on html
+    append(button, parent) {
+        parent.appendChild(button.getElement());
+        return button;
+    }
+
+    // remove button
+    remove(button) {
+        button.remove();
+    }
+}
 module.exports = {
   Std: Std, 
   Iterator: Iterator_,
@@ -1476,5 +1539,6 @@ module.exports = {
   UnorderedMultiset: UnorderedMultiset,
   UnorderedMultimap: UnorderedMultimap,
   FlatSet: FlatSet,
-  FlatMap: FlatMap
+  FlatMap: FlatMap,
+  Button: Button
 } 
